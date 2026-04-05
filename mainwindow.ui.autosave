@@ -131,7 +131,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="comboBoxTypeOperation"/>
           </item>
          </layout>
         </item>
@@ -145,7 +145,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="lineEditNameIOperation"/>
           </item>
          </layout>
         </item>
@@ -159,7 +159,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_2"/>
+           <widget class="QLineEdit" name="lineEdit"/>
           </item>
          </layout>
         </item>
@@ -173,18 +173,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QTimeEdit" name="timeEdit">
-            <property name="currentSection">
-             <enum>QDateTimeEdit::Section::HourSection</enum>
-            </property>
-           </widget>
+           <widget class="QLineEdit" name="lineEditTimeH"/>
           </item>
           <item>
-           <widget class="QTimeEdit" name="timeEdit_2">
-            <property name="currentSection">
-             <enum>QDateTimeEdit::Section::MinuteSection</enum>
-            </property>
-           </widget>
+           <widget class="QLineEdit" name="lineEditTimeM"/>
           </item>
          </layout>
         </item>
