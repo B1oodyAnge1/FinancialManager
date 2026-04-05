@@ -20,6 +20,8 @@ public:
 private slots:
     void on_ManualInput_clicked();
 
+    void on_lineEditSum_editingFinished();
+
 private:
     Ui::MainWindow *ui;
 };
