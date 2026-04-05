@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCalendarWidget>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHBoxLayout>
@@ -60,10 +59,10 @@ public:
     QHBoxLayout *horizontalLayout_14;
     QLabel *label_10;
     QTimeEdit *timeEdit;
+    QTimeEdit *timeEdit_2;
     QHBoxLayout *horizontalLayout_15;
     QLabel *label_11;
     QDateEdit *dateEdit;
-    QCalendarWidget *calendarWidget;
     QWidget *page_3;
     QWidget *page_4;
     QWidget *page_5;
@@ -207,8 +206,15 @@ public:
 
         timeEdit = new QTimeEdit(pageManualInput);
         timeEdit->setObjectName("timeEdit");
+        timeEdit->setCurrentSection(QDateTimeEdit::Section::HourSection);
 
         horizontalLayout_14->addWidget(timeEdit);
+
+        timeEdit_2 = new QTimeEdit(pageManualInput);
+        timeEdit_2->setObjectName("timeEdit_2");
+        timeEdit_2->setCurrentSection(QDateTimeEdit::Section::MinuteSection);
+
+        horizontalLayout_14->addWidget(timeEdit_2);
 
 
         verticalLayout_6->addLayout(horizontalLayout_14);
@@ -224,13 +230,6 @@ public:
         dateEdit->setObjectName("dateEdit");
 
         horizontalLayout_15->addWidget(dateEdit);
-
-        calendarWidget = new QCalendarWidget(pageManualInput);
-        calendarWidget->setObjectName("calendarWidget");
-        sizePolicy.setHeightForWidth(calendarWidget->sizePolicy().hasHeightForWidth());
-        calendarWidget->setSizePolicy(sizePolicy);
-
-        horizontalLayout_15->addWidget(calendarWidget);
 
 
         verticalLayout_6->addLayout(horizontalLayout_15);
