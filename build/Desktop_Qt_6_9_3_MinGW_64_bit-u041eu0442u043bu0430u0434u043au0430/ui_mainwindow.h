@@ -12,7 +12,6 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -20,7 +19,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -49,20 +47,22 @@ public:
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_2;
-    QComboBox *comboBox;
+    QComboBox *comboBoxTypeOperation;
     QHBoxLayout *horizontalLayout_12;
     QLabel *label_8;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEditNameOperation;
     QHBoxLayout *horizontalLayout_13;
     QLabel *label_9;
-    QLineEdit *lineEdit_2;
+    QLineEdit *lineEditSum;
     QHBoxLayout *horizontalLayout_14;
     QLabel *label_10;
-    QTimeEdit *timeEdit;
-    QTimeEdit *timeEdit_2;
+    QLineEdit *lineEditTimeH;
+    QLineEdit *lineEditTimeM;
     QHBoxLayout *horizontalLayout_15;
     QLabel *label_11;
-    QDateEdit *dateEdit;
+    QLineEdit *lineEditDateDay;
+    QLineEdit *lineEditDateMonth;
+    QLineEdit *lineEditDateYear;
     QWidget *page_3;
     QWidget *page_4;
     QWidget *page_5;
@@ -159,10 +159,10 @@ public:
 
         horizontalLayout_4->addWidget(label_2);
 
-        comboBox = new QComboBox(pageManualInput);
-        comboBox->setObjectName("comboBox");
+        comboBoxTypeOperation = new QComboBox(pageManualInput);
+        comboBoxTypeOperation->setObjectName("comboBoxTypeOperation");
 
-        horizontalLayout_4->addWidget(comboBox);
+        horizontalLayout_4->addWidget(comboBoxTypeOperation);
 
 
         verticalLayout_6->addLayout(horizontalLayout_4);
@@ -174,10 +174,10 @@ public:
 
         horizontalLayout_12->addWidget(label_8);
 
-        lineEdit = new QLineEdit(pageManualInput);
-        lineEdit->setObjectName("lineEdit");
+        lineEditNameOperation = new QLineEdit(pageManualInput);
+        lineEditNameOperation->setObjectName("lineEditNameOperation");
 
-        horizontalLayout_12->addWidget(lineEdit);
+        horizontalLayout_12->addWidget(lineEditNameOperation);
 
 
         verticalLayout_6->addLayout(horizontalLayout_12);
@@ -189,10 +189,10 @@ public:
 
         horizontalLayout_13->addWidget(label_9);
 
-        lineEdit_2 = new QLineEdit(pageManualInput);
-        lineEdit_2->setObjectName("lineEdit_2");
+        lineEditSum = new QLineEdit(pageManualInput);
+        lineEditSum->setObjectName("lineEditSum");
 
-        horizontalLayout_13->addWidget(lineEdit_2);
+        horizontalLayout_13->addWidget(lineEditSum);
 
 
         verticalLayout_6->addLayout(horizontalLayout_13);
@@ -204,17 +204,15 @@ public:
 
         horizontalLayout_14->addWidget(label_10);
 
-        timeEdit = new QTimeEdit(pageManualInput);
-        timeEdit->setObjectName("timeEdit");
-        timeEdit->setCurrentSection(QDateTimeEdit::Section::HourSection);
+        lineEditTimeH = new QLineEdit(pageManualInput);
+        lineEditTimeH->setObjectName("lineEditTimeH");
 
-        horizontalLayout_14->addWidget(timeEdit);
+        horizontalLayout_14->addWidget(lineEditTimeH);
 
-        timeEdit_2 = new QTimeEdit(pageManualInput);
-        timeEdit_2->setObjectName("timeEdit_2");
-        timeEdit_2->setCurrentSection(QDateTimeEdit::Section::MinuteSection);
+        lineEditTimeM = new QLineEdit(pageManualInput);
+        lineEditTimeM->setObjectName("lineEditTimeM");
 
-        horizontalLayout_14->addWidget(timeEdit_2);
+        horizontalLayout_14->addWidget(lineEditTimeM);
 
 
         verticalLayout_6->addLayout(horizontalLayout_14);
@@ -226,10 +224,20 @@ public:
 
         horizontalLayout_15->addWidget(label_11);
 
-        dateEdit = new QDateEdit(pageManualInput);
-        dateEdit->setObjectName("dateEdit");
+        lineEditDateDay = new QLineEdit(pageManualInput);
+        lineEditDateDay->setObjectName("lineEditDateDay");
 
-        horizontalLayout_15->addWidget(dateEdit);
+        horizontalLayout_15->addWidget(lineEditDateDay);
+
+        lineEditDateMonth = new QLineEdit(pageManualInput);
+        lineEditDateMonth->setObjectName("lineEditDateMonth");
+
+        horizontalLayout_15->addWidget(lineEditDateMonth);
+
+        lineEditDateYear = new QLineEdit(pageManualInput);
+        lineEditDateYear->setObjectName("lineEditDateYear");
+
+        horizontalLayout_15->addWidget(lineEditDateYear);
 
 
         verticalLayout_6->addLayout(horizontalLayout_15);
