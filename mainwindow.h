@@ -22,7 +22,20 @@ private slots:
 
     void on_lineEditSum_editingFinished();
 
+    void on_spinBoxTimeH_editingFinished();
+
+    void on_spinBoxTimeM_editingFinished();
+
+    void on_spinBoxDateDay_editingFinished();
+
+    void on_spinBoxDateMonth_editingFinished();
+
+    void on_spinBoxDateYear_editingFinished();
+
+    void on_lineEditNameOperation_editingFinished();
+
 private:
+    void initScreens();
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

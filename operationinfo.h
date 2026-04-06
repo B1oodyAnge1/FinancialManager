@@ -25,12 +25,18 @@ private:
     int sumOperation;
 
 public:
-    void setTime(short int ttimeH, short int ttimeM, short int ttimeS);
-    void setDate( short int tdateDay,  short int tdateMonth,  short int tdateYear);
+    void setTime(short int ttimeH, short int ttimeM, short int ttimeS = 0);
+    void setTimeH(short int ttimeH);
+    void setTimeM(short int ttimeM);
+    void setTimeS(short int ttimeS = 0);
+    void setDate(short int tdateDay,  short int tdateMonth,  short int tdateYear);
+    void setDateD(short int tdateDay);
+    void setDateM(short int tdateMonth);
+    void setDateY(short int tdateYear);
     void setTypeOperation(QString ttypeOperation);
     void setNameOperation(QString tnameOperation);
     void setSum(int tsumOperation);
 };
 
-OperationInfo opInfo;
+
 #endif // OPERATIONINFO_H

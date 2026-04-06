@@ -173,10 +173,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditTimeH"/>
+           <widget class="QSpinBox" name="spinBoxTimeH"/>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditTimeM"/>
+           <widget class="QSpinBox" name="spinBoxTimeM"/>
           </item>
          </layout>
         </item>
@@ -190,13 +190,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditDateDay"/>
+           <widget class="QSpinBox" name="spinBoxDateDay"/>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditDateMonth"/>
+           <widget class="QSpinBox" name="spinBoxDateMonth"/>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditDateYear"/>
+           <widget class="QSpinBox" name="spinBoxDateYear"/>
           </item>
          </layout>
         </item>
