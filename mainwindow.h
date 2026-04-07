@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QDebug>
+#include <QFile>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +40,7 @@ private slots:
     void on_lineEditNameOperation_editingFinished();
 
 private:
+    void createDatabase(QString nameDB);
     void initScreens();
     Ui::MainWindow *ui;
 };

@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    createDatabase("myDb");
     initScreens();
 
     ui->stackedWidget->setCurrentIndex(0);
@@ -27,6 +28,38 @@ void MainWindow::on_ManualInput_clicked()
 }
 
 
+void MainWindow::createDatabase(QString nameDB){
+     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    nameDB+=".db";
+
+     // Проверяем, существует ли файл
+     if (QFile::exists(nameDB)) {
+         qDebug() << "Файл базы данных уже существует, подключаемся к нему";
+     } else {
+         qDebug() << "Файл базы данных не найден, будет создан новый";
+     }
+
+    db.setDatabaseName(nameDB);
+
+    if (!db.open()) {
+        qDebug() << "Ошибка создания/открытия БД:" << db.lastError().text();
+        return;
+    }
+
+     qDebug() << "Бд успешно создано/открыто";
+    QSqlQuery query;
+    query.exec(R"(
+        CREATE TABLE IF NOT EXISTS main(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user INTEGER,
+        sum INTEGER,
+        type INTEGER,
+        dateOperation INTEGER,
+        timeOperation INTEGER,
+        createTimeRecords INTEGER,
+        currency INTEGER)
+                )");
+}
 
 
 void MainWindow::initScreens(){
