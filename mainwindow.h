@@ -10,6 +10,11 @@
 
 #include <QDebug>
 
+
+#include <QDir>
+#include <QFileInfoList>
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -42,7 +47,9 @@ private slots:
     void on_lineEditNameOperation_editingFinished();
 
 private:
+    //BD
     void createDatabase(QString nameDB);
+    void instalData(QString nameDB);
     void initScreens();
     Ui::MainWindow *ui;
 };

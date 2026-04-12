@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/icon/bus.png</file>
+        <file>img/icon/dish.png</file>
+        <file>img/icon/dumbbell.png</file>
+        <file>img/icon/paw.png</file>
+        <file>img/icon/piggy-bank.png</file>
+        <file>img/icon/responsive.png</file>
+        <file>img/icon/shopping-cart.png</file>
+        <file>img/icon/taxi.png</file>
+        <file>img/icon/train.png</file>
+        <file>img/icon/transference.png</file>
+    </qresource>
+</RCC>

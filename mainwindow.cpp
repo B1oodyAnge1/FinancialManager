@@ -4,6 +4,7 @@
 
 #include <QDate>
 
+#include <QDirIterator>
 
 OperationInfo opInfo;
 
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     createDatabase("myDb");
+    instalData("myDb");
     initScreens();
 
     ui->stackedWidget->setCurrentIndex(0);
@@ -31,7 +33,7 @@ void MainWindow::on_ManualInput_clicked()
 
 
 void MainWindow::createDatabase(QString nameDB){
-     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     nameDB+=".db";
 
      // Проверяем, существует ли файл
@@ -57,7 +59,7 @@ void MainWindow::createDatabase(QString nameDB){
     if(!query.exec(R"(
         CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        Name TEXT  NOT NULL,
+        Name TEXT UNIQUE NOT NULL,
         Password TEXT NOT NULL
         )
     )")){
@@ -69,7 +71,7 @@ void MainWindow::createDatabase(QString nameDB){
         CREATE TABLE IF NOT EXISTS icons(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        img_url TEXT NOT NULL
+        img_url TEXT UNIQUE NOT NULL
         )
     )")){
         qDebug()<< "Ошибка запроса: " << query.lastError().text();
@@ -79,7 +81,7 @@ void MainWindow::createDatabase(QString nameDB){
     if(!query.exec(R"(
         CREATE TABLE IF NOT EXISTS types(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        type TEXT NOT NULL,
+        type TEXT UNIQUE NOT NULL,
         icon_id INTEGER NOT NULL,
         FOREIGN KEY (icon_id) REFERENCES icons(id)
         )
@@ -91,8 +93,8 @@ void MainWindow::createDatabase(QString nameDB){
     if(!query.exec(R"(
         CREATE TABLE IF NOT EXISTS currencies(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        type TEXT NOT NULL,
-        symbol text NOT NULL
+        type TEXT UNIQUE NOT NULL,
+        symbol text UNIQUE NOT NULL
         )
     )")){
         qDebug()<< "Ошибка запроса: " << query.lastError().text();
@@ -123,7 +125,88 @@ void MainWindow::createDatabase(QString nameDB){
     )")){
         qDebug()<< "Ошибка запроса: " << query.lastError().text();
     }
+    db.close();
+}
 
+void MainWindow::instalData(QString nameDB){
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    nameDB+=".db";
+
+    // Проверяем, существует ли файл
+    if (QFile::exists(nameDB)) {
+        qDebug() << "Файл базы данных уже существует, подключаемся к нему";
+    } else {
+        qDebug() << "Файл базы данных не найден, будет создан новый";
+    }
+
+
+    db.setDatabaseName(nameDB);
+
+    if (!db.open()) {
+        qDebug() << "Ошибка создания/открытия БД:" << db.lastError().text();
+        return;
+    }
+
+    qDebug() << "Бд успешно создано/открыто";
+    QSqlQuery query;
+
+    //1й Юзер
+    if(!query.exec(R"(
+        INSERT OR IGNORE INTO users (Name, Password) VALUES
+        ('Admin', '12345')
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+    //Валюты
+    if(!query.exec(R"(
+        INSERT OR IGNORE INTO currencies (type, symbol) VALUES
+        ('Рубль', '₽'),
+        ('Доллар', '$'),
+        ('Евро', '€'),
+        ('Иена', '¥'),
+        ('Тенге', '₸'),
+        ('Лира', '₺')
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+    QDirIterator it(":/img/icon", QDirIterator::Subdirectories);
+
+    while (it.hasNext()) {
+
+        QString fullPath = it.next();
+        qDebug() << "Найден ресурс:" << fullPath;
+
+        // Получить только имя файла
+        QFileInfo info(fullPath);
+        qDebug() << "Имя файла:" << info.baseName();
+
+        query.prepare("INSERT OR IGNORE INTO icons (name, img_url) VALUES (?, ?)");
+        query.addBindValue(info.baseName());
+        query.addBindValue(fullPath);
+        if (!query.exec()) {
+            qDebug()<< "Ошибка запроса: " << query.lastError().text();
+        }
+    }
+
+
+    if(!query.exec(R"(
+        INSERT OR IGNORE INTO types (type, icon_id) VALUES
+        ('Еда', '1'),
+        ('Покупки', '2'),
+        ('Питомцы', '3'),
+        ('Транспорт ЖД', '4'),
+        ('Транспорт Такси', '5'),
+        ('Транспорт Общественный', '6'),
+        ('Техника и Связь', '7'),
+        ('Сбережения', '8'),
+        ('Переводы', '9')
+    )")){
+        qDebug()<< "Ошибка запроса types: " << query.lastError().text();
+    }
+
+
+    db.close();
 }
 
 
