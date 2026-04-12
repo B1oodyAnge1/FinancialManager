@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QFile>
 
+#include <QDebug>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

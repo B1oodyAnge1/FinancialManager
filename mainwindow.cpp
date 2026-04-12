@@ -3,6 +3,8 @@
 #include "operationinfo.h"
 
 #include <QDate>
+
+
 OperationInfo opInfo;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -39,6 +41,7 @@ void MainWindow::createDatabase(QString nameDB){
          qDebug() << "Файл базы данных не найден, будет создан новый";
      }
 
+
     db.setDatabaseName(nameDB);
 
     if (!db.open()) {
@@ -48,17 +51,79 @@ void MainWindow::createDatabase(QString nameDB){
 
      qDebug() << "Бд успешно создано/открыто";
     QSqlQuery query;
-    query.exec(R"(
+
+
+
+    if(!query.exec(R"(
+        CREATE TABLE IF NOT EXISTS users(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name TEXT  NOT NULL,
+        Password TEXT NOT NULL
+        )
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+
+    if(!query.exec(R"(
+        CREATE TABLE IF NOT EXISTS icons(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        img_url TEXT NOT NULL
+        )
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+
+    if(!query.exec(R"(
+        CREATE TABLE IF NOT EXISTS types(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        type TEXT NOT NULL,
+        icon_id INTEGER NOT NULL,
+        FOREIGN KEY (icon_id) REFERENCES icons(id)
+        )
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+
+    if(!query.exec(R"(
+        CREATE TABLE IF NOT EXISTS currencies(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        type TEXT NOT NULL,
+        symbol text NOT NULL
+        )
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+
+    if(!query.exec(R"(
         CREATE TABLE IF NOT EXISTS main(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user INTEGER,
-        sum INTEGER,
-        type INTEGER,
-        dateOperation INTEGER,
-        timeOperation INTEGER,
-        createTimeRecords INTEGER,
-        currency INTEGER)
-                )");
+        user_id INTEGER NOT NULL,
+        sum INTEGER NOT NULL,
+        type_id INTEGER NOT NULL,
+        dateOperation TEXT NOT NULL,
+        timeOperation TEXT NOT NULL,
+        createTimeRecords TEXT NOT NULL,
+        currency_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (type_id) REFERENCES types(id),
+        FOREIGN KEY (currency_id) REFERENCES currencies(id)
+        )
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
+
+    if(!query.exec(R"(
+        SELECT name FROM sqlite_master WHERE type='table'
+    )")){
+        qDebug()<< "Ошибка запроса: " << query.lastError().text();
+    }
+
 }
 
 
